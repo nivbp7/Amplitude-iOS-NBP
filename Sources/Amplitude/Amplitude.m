@@ -1089,8 +1089,11 @@ static NSString *const APP_BUILD = @"app_build";
 }
 
 - (void)makeEventUploadPostRequest:(NSString *)url events:(NSString *)events numEvents:(long)numEvents maxEventId:(long long)maxEventId maxIdentifyId:(long long)maxIdentifyId {
-    print("URL \(url)");
-    print("events \(events)");
+    NSLog(@"URL:");
+    NSLog(@"%@", url);
+
+    NSLog(@"Events:");
+    NSLog(@"%@", events);
     
     NSMutableURLRequest *request =[NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
     [request setTimeoutInterval:60.0];
@@ -1105,7 +1108,8 @@ static NSString *const APP_BUILD = @"app_build";
     [postData appendData:[@"&e=" dataUsingEncoding:NSUTF8StringEncoding]];
     [postData appendData:[[self urlEncodeString:events] dataUsingEncoding:NSUTF8StringEncoding]];
 
-print("apiVersionString \(apiVersionString)");
+    NSLog(@"apiVersionString:");
+    NSLog(@"%@", apiVersionString);
 
     // Add timestamp of upload
     [postData appendData:[@"&upload_time=" dataUsingEncoding:NSUTF8StringEncoding]];
@@ -1124,7 +1128,8 @@ print("apiVersionString \(apiVersionString)");
 
     [request setHTTPBody:postData];
 
-print("postData \(postData)");
+    NSLog(@"postData:");
+    NSLog(@"%@", postData);
     
     AMPLITUDE_LOG(@"Events: %@", events);
 
@@ -1139,7 +1144,8 @@ print("postData \(postData)");
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         if (response != nil) {
             NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            print("result \(result)");
+                NSLog(@"result:");
+                NSLog(@"%@", result);
 
             if ([httpResponse statusCode] == 200) {
                 // success, remove existing events from dictionary
