@@ -1089,9 +1089,6 @@ static NSString *const APP_BUILD = @"app_build";
 }
 
 - (void)makeEventUploadPostRequest:(NSString *)url events:(NSString *)events numEvents:(long)numEvents maxEventId:(long long)maxEventId maxIdentifyId:(long long)maxIdentifyId {
-    NSLog(@"URL:");
-    NSLog(@"%@", url);
-
     NSLog(@"Events:");
     NSLog(@"%@", events);
     
@@ -1107,9 +1104,6 @@ static NSString *const APP_BUILD = @"app_build";
     [postData appendData:[self.apiKey dataUsingEncoding:NSUTF8StringEncoding]];
     [postData appendData:[@"&e=" dataUsingEncoding:NSUTF8StringEncoding]];
     [postData appendData:[[self urlEncodeString:events] dataUsingEncoding:NSUTF8StringEncoding]];
-
-    NSLog(@"apiVersionString:");
-    NSLog(@"%@", apiVersionString);
 
     // Add timestamp of upload
     [postData appendData:[@"&upload_time=" dataUsingEncoding:NSUTF8StringEncoding]];
