@@ -1089,6 +1089,9 @@ static NSString *const APP_BUILD = @"app_build";
 }
 
 - (void)makeEventUploadPostRequest:(NSString *)url events:(NSString *)events numEvents:(long)numEvents maxEventId:(long long)maxEventId maxIdentifyId:(long long)maxIdentifyId {
+    print("URL \(url)")
+    print("events \(events)")
+    
     NSMutableURLRequest *request =[NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
     [request setTimeoutInterval:60.0];
 
@@ -1101,6 +1104,8 @@ static NSString *const APP_BUILD = @"app_build";
     [postData appendData:[self.apiKey dataUsingEncoding:NSUTF8StringEncoding]];
     [postData appendData:[@"&e=" dataUsingEncoding:NSUTF8StringEncoding]];
     [postData appendData:[[self urlEncodeString:events] dataUsingEncoding:NSUTF8StringEncoding]];
+
+print("apiVersionString \(apiVersionString)")
 
     // Add timestamp of upload
     [postData appendData:[@"&upload_time=" dataUsingEncoding:NSUTF8StringEncoding]];
@@ -1118,6 +1123,9 @@ static NSString *const APP_BUILD = @"app_build";
     }
 
     [request setHTTPBody:postData];
+
+print("postData \(postData)")
+    
     AMPLITUDE_LOG(@"Events: %@", events);
 
     // If pinning is enabled, use the AMPURLSession that handles it.
@@ -1131,6 +1139,8 @@ static NSString *const APP_BUILD = @"app_build";
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         if (response != nil) {
             NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            print("result \(result)")
+
             if ([httpResponse statusCode] == 200) {
                 // success, remove existing events from dictionary
                 uploadSuccessful = YES;
